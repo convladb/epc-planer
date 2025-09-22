@@ -1,0 +1,44 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EPC Playbook — Lego Planner</title>
+  <meta name="theme-color" content="#f59e0b">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon-192.png" sizes="192x192">
+  <meta name="description" content="Визуальный планер контракт-менеджера EPC-проекта в виде лего-блоков" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Mobile-friendly safe area */
+    @supports(padding:max(env(safe-area-inset-top))) {
+      body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-zinc-50 to-white text-zinc-900">
+  <noscript>Для работы приложения включите JavaScript.</noscript>
+  <div id="root"></div>
+
+  <!-- React & Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- SortableJS (drag-n-drop) -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+
+  <!-- Our app (JSX, compiled in the browser) -->
+  <script type="text/babel" data-presets="react" src="/app.jsx"></script>
+
+  <script>
+    // Register service worker for PWA install & offline
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
+</body>
+</html>
