@@ -1,7 +1,7 @@
 
 const CACHE_NAME = 'epc-planner-v1';
 const ASSETS = [
-  '/', '/index.html', '/app.jsx', '/manifest.webmanifest',
+  './', './index.html', './app.jsx', './manifest.webmanifest',
   'https://unpkg.com/react@18/umd/react.production.min.js',
   'https://unpkg.com/react-dom@18/umd/react-dom.production.min.js',
   'https://unpkg.com/@babel/standalone/babel.min.js',
@@ -19,7 +19,6 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
-    // cleanup old caches if needed
     const keys = await caches.keys();
     await Promise.all(keys.map(k => (k !== CACHE_NAME) ? caches.delete(k) : null));
     self.clients.claim();
@@ -28,7 +27,6 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  // Network-first for same-origin, cache-first for CDN
   if (url.origin === self.location.origin) {
     event.respondWith((async () => {
       try {
